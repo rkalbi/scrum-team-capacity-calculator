@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .icon-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .icon-size {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .icon-size h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .download-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .download-btn:hover {
+            background: #2563eb;
+        }
+        .instructions {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h2>🎨 Sprint Capacity Planner - Icon Generator</h2>
+        <p>Click the download buttons below to save each icon size as PNG files for your Chrome extension.</p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Click each "Download PNG" button</li>
+            <li>Save the files as: <code>icon16.png</code>, <code>icon32.png</code>, <code>icon48.png</code>, <code>icon128.png</code></li>
+            <li>Place them in your <code>icons/</code> folder</li>
+            <li>Update your manifest.json to use .png instead of .svg</li>
+        </ol>
+    </div>
+
+    <div class="icon-container">
+        <div class="icon-size">
+            <h3>16x16</h3>
+            <canvas id="canvas16" width="16" height="16"></canvas>
+            <br>
+            <button class="download-btn" onclick="downloadIcon('canvas16', 'icon16.png')">Download PNG</button>
+        </div>
+        
+        <div class="icon-size">
+            <h3>32x32</h3>
+            <canvas id="canvas32" width="32" height="32"></canvas>
+            <br>
+            <button class="download-btn" onclick="downloadIcon('canvas32', 'icon32.png')">Download PNG</button>
+        </div>
+        
+        <div class="icon-size">
+            <h3>48x48</h3>
+            <canvas id="canvas48" width="48" height="48"></canvas>
+            <br>
+            <button class="download-btn" onclick="downloadIcon('canvas48', 'icon48.png')">Download PNG</button>
+        </div>
+        
+        <div class="icon-size">
+            <h3>128x128</h3>
+            <canvas id="canvas128" width="128" height="128"></canvas>
+            <br>
+            <button class="download-btn" onclick="downloadIcon('canvas128', 'icon128.png')">Download PNG</button>
+        </div>
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const center = size / 2;
+            const radius = size * 0.47;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background gradient
+            const bgGradient = ctx.createLinearGradient(0, 0, size, size);
+            bgGradient.addColorStop(0, '#667eea');
+            bgGradient.addColorStop(1, '#764ba2');
+            
+            // Main circle
+            ctx.beginPath();
+            ctx.arc(center, center, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = bgGradient;
+            ctx.fill();
+            
+            // Border
+            ctx.strokeStyle = '#4c1d95';
+            ctx.lineWidth = size > 32 ? 2 : 1;
+            ctx.stroke();
+            
+            // Inner highlight
+            ctx.beginPath();
+            ctx.arc(center, center, radius - 2, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            
+            // Lightning bolt (left side)
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            const scale = size / 128;
+            const lightningPoints = [
+                [52*scale, 35*scale], [42*scale, 55*scale], [50*scale, 55*scale],
+                [48*scale, 75*scale], [58*scale, 55*scale], [50*scale, 55*scale]
+            ];
+            ctx.moveTo(lightningPoints[0][0], lightningPoints[0][1]);
+            for (let i = 1; i < lightningPoints.length; i++) {
+                ctx.lineTo(lightningPoints[i][0], lightningPoints[i][1]);
+            }
+            ctx.closePath();
+            ctx.fill();
+            
+            // Chart bars (right side)
+            const barWidth = 6 * scale;
+            const bars = [
+                {x: 65*scale, y: 60*scale, h: 20*scale},
+                {x: 73*scale, y: 50*scale, h: 30*scale},
+                {x: 81*scale, y: 55*scale, h: 25*scale},
+                {x: 89*scale, y: 45*scale, h: 35*scale}
+            ];
+            
+            ctx.fillStyle = 'rgba(255,255,255,0.9)';
+            bars.forEach(bar => {
+                ctx.fillRect(bar.x, bar.y, barWidth, bar.h);
+            });
+            
+            // Team dots (if size is large enough)
+            if (size >= 32) {
+                const dotRadius = 3 * scale;
+                const dots = [
+                    {x: 70*scale, y: 40*scale, color: '#fbbf24'},
+                    {x: 78*scale, y: 38*scale, color: '#34d399'},
+                    {x: 86*scale, y: 40*scale, color: '#f87171'}
+                ];
+                
+                dots.forEach(dot => {
+                    ctx.beginPath();
+                    ctx.arc(dot.x, dot.y, dotRadius, 0, 2 * Math.PI);
+                    ctx.fillStyle = dot.color;
+                    ctx.fill();
+                });
+            }
+            
+            // Top highlight
+            if (size >= 48) {
+                const highlightGradient = ctx.createRadialGradient(center, center*0.7, 0, center, center*0.7, radius*0.8);
+                highlightGradient.addColorStop(0, 'rgba(255,255,255,0.15)');
+                highlightGradient.addColorStop(1, 'rgba(255,255,255,0)');
+                
+                ctx.beginPath();
+                ctx.ellipse(center, center*0.7, radius*0.6, radius*0.15, 0, 0, 2 * Math.PI);
+                ctx.fillStyle = highlightGradient;
+                ctx.fill();
+            }
+        }
+        
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Draw all icons when page loads
+        window.onload = function() {
+            drawIcon(document.getElementById('canvas16'), 16);
+            drawIcon(document.getElementById('canvas32'), 32);
+            drawIcon(document.getElementById('canvas48'), 48);
+            drawIcon(document.getElementById('canvas128'), 128);
+        };
+    </script>
+</body>
+</html>

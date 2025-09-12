@@ -1,0 +1,37 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle with Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f1f5f9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main Background -->
+  <circle cx="64" cy="64" r="60" fill="url(#bgGradient)" stroke="#4c1d95" stroke-width="2"/>
+  
+  <!-- Inner Shadow Circle -->
+  <circle cx="64" cy="64" r="56" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  
+  <!-- Sprint Symbol (Lightning + Chart) -->
+  <!-- Lightning Bolt -->
+  <path d="M52 35 L42 55 L50 55 L48 75 L58 55 L50 55 L52 35 Z" fill="url(#iconGradient)" stroke="rgba(79,70,229,0.3)" stroke-width="1"/>
+  
+  <!-- Chart Bars -->
+  <rect x="65" y="60" width="6" height="20" rx="3" fill="url(#iconGradient)" opacity="0.9"/>
+  <rect x="73" y="50" width="6" height="30" rx="3" fill="url(#iconGradient)" opacity="0.9"/>
+  <rect x="81" y="55" width="6" height="25" rx="3" fill="url(#iconGradient)" opacity="0.9"/>
+  <rect x="89" y="45" width="6" height="35" rx="3" fill="url(#iconGradient)" opacity="0.9"/>
+  
+  <!-- Team Dots -->
+  <circle cx="70" cy="40" r="3" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="78" cy="38" r="3" fill="#34d399" opacity="0.8"/>
+  <circle cx="86" cy="40" r="3" fill="#f87171" opacity="0.8"/>
+  
+  <!-- Subtle Highlight -->
+  <ellipse cx="64" cy="45" rx="35" ry="8" fill="rgba(255,255,255,0.1)"/>
+</svg>
