@@ -1,6 +1,6 @@
 # Privacy Policy - Sprint Capacity Planner
 
-**Last updated: December 2024**
+**Last updated: September 2025**
 
 ## Overview
 Sprint Capacity Planner is committed to protecting your privacy. This extension operates entirely locally and does not collect, transmit, or store any personal data on external servers.
